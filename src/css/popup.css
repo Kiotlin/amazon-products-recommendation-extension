@@ -12,3 +12,33 @@ img {
     margin: 5px 0px;
     padding: 0px 5px;
 }
+.card-img {
+    width: 100px;
+    height: 100px;
+}
+.card .card-body {
+    max-height: 80px;
+    height: fit-content;
+}
+.rm-container {
+    padding: 0px;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+
+}
+#title {
+    margin: 0 4px;
+}
+.ver-center {
+    display: block;
+    margin: auto;
+    line-height: 38px;
+}
+#refresh {
+    border: 0px;
+}
+.split-line {
+    background: linear-gradient(to left, #efefef, #b6b6b6, #efefef);
+    height: 1px;
+    margin: 0 0 5px 0;
+}
