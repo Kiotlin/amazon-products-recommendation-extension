@@ -1,40 +1,114 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
+    <Meta http-equiv="Content-Type" Content="text/html; Charset=utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/popup.css">
 </head>
 <body>
     <div class="container" id="container">
-        <div class="card recom-source">
-            <div class="row no-gutters">
-              <div class="col-4">
-                <img src="https://m.media-amazon.com/images/G/09/Test-SVS/B08GSHPC6G.jpg" class="card-img" alt="...">
-              </div>
-              <div class="col-8">
-                <div class="card-body">
-                  <h6 class="card-title">Card title</h6>
-                  <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                </div>
-              </div>
-            </div>
-        </div>
-        <div class="container rm-container" id="rm-container">
-          <div id="title">
-            <div class="row no-gutters">
-              <div class="col-9">
-                <div class="font-weight-bold ver-center">FINDING MORE PRODUCTS</div>
-              </div>
-              <div class="col-3 text-right">
-                <div class="ver-center">
-                  <button class="badge badge-info" id="refresh">REFRESH</button>
-                </div>
-              </div>
-            </div>
-            <div class="split-line"></div>
+      <div id="url-box">
+        <div class="input-group input-group-sm mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon3">Amazon Url</span>
           </div>
-          <div class="rm-frag"></div>
+          <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
         </div>
+      </div>
+      <div class="card recom-source">
+          <div class="row no-gutters">
+            <div class="col-4">
+              <img src="https://m.media-amazon.com/images/I/41vXp51FdCL._AC_SR160,160_.jpg" class="card-img" alt="...">
+            </div>
+            <div class="col-8">
+              <div class="card-body">
+                <h6 class="card-title text-truncate">Canon キヤノン 単焦点レンズ EF-M32mm F1.4 STM ミラーレス一眼対応 ブラック 全長56.5mm EF-M3214STM</h6>
+                <p class="card-text text-truncate"><small class="text-muted">価格:　￥51,900<a href="#" style="padding-left: 8px;">詳しく</a></small></p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="container rm-container" id="rm-container">
+        <div id="title">
+          <div class="row no-gutters">
+            <div class="col-9" id="rm-title">
+              <div class="font-weight-bold ver-center" style="font-size: small;">RECOMMENDED PRODUCTS</div>
+            </div>
+            <div class="col-3 text-right" id="rm-refresh">
+              <div class="ver-center">
+                <button class="badge badge-info" id="refresh">REFRESH</button>
+              </div>
+            </div>
+          </div>
+          <div class="split-line"></div>
+        </div>
+        <div class="rm-frag">
+          <div id="rm-card" class="card">
+            <div class="row no-gutters">
+              <div class="col-2">
+                <img src="https://m.media-amazon.com/images/I/41BJNd+7clL._AC_SR160,160_.jpg" class="card-img" alt="...">
+              </div>
+              <div class="col-9">
+                <div class="card-body">
+                  <h6 class="card-title text-truncate">VILTROX 85MM F1.8 STM AF 中望遠単焦点レンズ 大口径 大絞り 富士フイルム Fujifilm Xマウント ミラーレ</h6>
+                  <p class="card-text text-truncate"><small class="text-muted">価格:　￥51,300<a href="#" style="padding-left: 8px;">詳しく</a></small></p>
+                </div>
+              </div>
+              <div class="col-1">
+                <button class="cancel">×</button>
+              </div>
+            </div>
+          </div>
+          <div id="rm-card" class="card">
+            <div class="row no-gutters">
+              <div class="col-2">
+                <img src="https://m.media-amazon.com/images/I/81aczf1sY8L._AC_UY218_.jpg" class="card-img" alt="...">
+              </div>
+              <div class="col-9">
+                <div class="card-body">
+                  <h6 class="card-title text-truncate">FUJIFILM ミラーレス一眼カメラ X-T3レンズキット シルバー X-T3LK-S</h6>
+                  <p class="card-text text-truncate"><small class="text-muted">価格:　￥185000<a href="#" style="padding-left: 8px;">詳しく</a></small></p>
+                </div>
+              </div>
+              <div class="col-1">
+                <button class="cancel">×</button>
+              </div>
+            </div>
+          </div>
+          <div id="rm-card" class="card">
+            <div class="row no-gutters">
+              <div class="col-2">
+                <img src="https://m.media-amazon.com/images/I/31Jr6FpIIeL._AC_SR160,160_.jpg" class="card-img" alt="...">
+              </div>
+              <div class="col-9">
+                <div class="card-body">
+                  <h6 class="card-title text-truncate">VILTROX L116T LED ビデオライト 超薄型LEDパネル 輝度と色温度調整可能 3300K-5600K CRI95+ 小物撮影 結婚式写真撮影 一眼レフカメラ対応</h6>
+                  <p class="card-text text-truncate"><small class="text-muted">価格:　￥4250<a href="#" style="padding-left: 8px;">詳しく</a></small></p>
+                </div>
+              </div>
+              <div class="col-1">
+                <button class="cancel">×</button>
+              </div>
+            </div>
+          </div>
+          <div id="rm-card" class="card">
+            <div class="row no-gutters">
+              <div class="col-2">
+                <img src="https://images-na.ssl-images-amazon.com/images/I/51oOdCdPhdL._SL1000_.jpg" class="card-img" alt="...">
+              </div>
+              <div class="col-9">
+                <div class="card-body">
+                  <h6 class="card-title text-truncate">Echo Dot 第3世代 - スマートスピーカー with Alexa、チャコール + スイッチボット スマートホーム 学習リモコン Hub Mini</h6>
+                  <p class="card-text text-truncate"><small class="text-muted">価格:　￥6960<a href="#" style="padding-left: 8px;">詳しく</a></small></p>
+                </div>
+              </div>
+              <div class="col-1">
+                <button class="cancel">×</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="js/jquery-3.5.1.min.js"></script>
