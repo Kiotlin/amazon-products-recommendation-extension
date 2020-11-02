@@ -9,79 +9,85 @@ var productDetailsUrl = baseUrl + 'product/details';
 var productSearchUrl = baseUrl + 'product/search';
 var productReviewsUrl = baseUrl + 'product/reviews';
 var productCategoriesUrl = baseUrl + 'categories';
-var shopLocation = 'JP';
+var shopLocation = 'US';
+var splitIndex = 5;
 
 // product details
 var urlInputStr;
 var asinID;
+var category;
+var keyword;
 var basedProductInfo;
 var basedProductVector;
+var relatedProductList;
 
 refresh.addEventListener('click', async function() {
     urlInputStr = urlInput.value;
 
     // get ASIN ID & its details
-    asinID = urlInputStr.split('/')[5];
-    await getProductInformation(asinID, shopLocation)
+    asinID = urlInputStr.split('/')[splitIndex];
+    await getProductDetails(asinID, shopLocation)
     .then(data => basedProductInfo = data)
     .catch(err => console.log(err));
     console.log(basedProductInfo);
 
     // extract product's eigenvalues => eigenvector 
+    await getRelatedProductList(category, shopLocation, keyword)
+    .then(data => relatedProductList = data)
+    .catch(err => console.log(err));
 });
 
+// http request sender
+function productRequest(resolve, reject, url) {
+    // create httpRequest model
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = function() {
+        if (this.readyState === this.DONE) {
+            if (this.status >= 200 && this.status < 300) {
+                let data = JSON.parse(this.responseText);
+                resolve(data);
+            } else {
+                reject({
+                    status: this.status,
+                    statusText: this.statusText
+                });
+            }
+        }
+    };
+    xhr.onerror = function() {
+        reject({
+            status: this.status,
+            statusText: this.statusText
+        });
+    };
+
+    // send product details request 
+    xhr.open('GET', url);
+    xhr.setRequestHeader('content-type', 'application/json');
+    xhr.setRequestHeader('x-rapidapi-host', x_rapidapi_host);
+    xhr.setRequestHeader('x-rapidapi-key', x_rapidapi_key);
+    xhr.send();
+}
+
 /**
- * Feature Parameters: ['brand', 'salePrice', 'score']
+ * Feature Parameters: ['brand', 'salePrice', 'score', 'title']
  * Country: 'JP'
  */
-function getProductInformation(asinID, country) {
-    return new Promise(function (resolve, reject) {
-        let urlRequest = productDetailsUrl + '?country=' + country + '&asin=' + asinID;
-
-        // create httpRequest model
-        var xhr = new XMLHttpRequest();
-        xhr.withCredentials = true;
-        xhr.onreadystatechange = function() {
-            if (this.readyState === this.DONE) {
-                if (this.status >= 200 && this.status < 300) {
-                    let data = JSON.parse(this.responseText);
-                    resolve(data);
-                } else {
-                    reject({
-                        status: this.status,
-                        statusText: this.statusText
-                    });
-                }
-            }
-        };
-        xhr.onerror = function() {
-            reject({
-                status: this.status,
-                statusText: this.statusText
-            });
-        };
-
-        // send product details request 
-        xhr.open('GET', urlRequest);
-        xhr.setRequestHeader('content-type', 'application/json');
-        xhr.setRequestHeader('x-rapidapi-host', x_rapidapi_host);
-        xhr.setRequestHeader('x-rapidapi-key', x_rapidapi_key);
-        xhr.send();
+function getProductDetails(asinID, country) {
+    return new Promise(function(resolve, reject) {
+        let url = productDetailsUrl + '?country=' + country + '&asin=' + asinID;
+        productRequest(resolve, reject, url);
     });
 }
 
-// function getResponse() {
-//     if (xhr.readyState===xhr.DONE) {
-//         if (xhr.status>=200 && xhr.sta) {
-//             let data = JSON.parse(xhr.responseText);
-//             basedProductInfo = data;
-//         } else {
-//             console.log('There was a problem with the request.');
-//         }
-//     }
-// }
+function getRelatedProductList(category, country, keyword, page=1) {
+    return new Promise(function(resolve, reject) {
+        let url = productSearchUrl + '?page=' + page + '&category=' + category + '&country=' + country + '&keyword=' + keyword;
+        productRequest(resolve, reject, url);
+    });
+}
+
 function getProductEigenVector(productDetail) {
 
 }
-
-function getSameProductsLists(page, category, country) {}
