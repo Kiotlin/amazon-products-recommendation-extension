@@ -17,8 +17,10 @@ var urlInputStr;
 var asinID;
 var category;
 var keyword;
+// the info of product that is inputted 
 var basedProductInfo;
 var basedProductVector;
+// searched products result based on the product that was inputted
 var relatedProductList;
 
 refresh.addEventListener('click', async function() {
@@ -31,11 +33,39 @@ refresh.addEventListener('click', async function() {
     .catch(err => console.log(err));
     console.log(basedProductInfo);
 
-    // extract product's eigenvalues => eigenvector 
-    await getRelatedProductList(category, shopLocation, keyword)
+    // search related products
+    let categoryAndKeyword = getProductCatagoryAndKeyword(basedProductInfo);
+    let categoryString = categoryAndKeyword.category;
+    let keywordString = '';
+    let randomPage = Math.floor(Math.random()*100);
+    for(let i=0; i<categoryAndKeyword.keywords.length; i++) {
+        keywordString += categoryAndKeyword.keywords[i] + ' ';
+    }
+    await getRelatedProductList(categoryString, shopLocation, keywordString, randomPage)
     .then(data => relatedProductList = data)
     .catch(err => console.log(err));
+    console.log(relatedProductList);
+
+    /**
+     * get data vector
+     * STRUCTURE: ['title', 'price', 'rating', 'img', 'url']
+     */
+    let dataContainer = [];
+    let productList = relatedProductList.products;
+    for (let product in productList) {
+        let data = [];
+        data.push(productList[product].title);
+        data.push(productList[product].price.current_price);
+        data.push(productList[product].reviews.rating);
+        data.push(productList[product].thumbnail);
+        data.push(productList[product].url);
+        dataContainer.push(data);
+    }
+    console.log(dataContainer);
+
+
 });
+
 
 // http request sender
 function productRequest(resolve, reject, url) {
@@ -87,6 +117,97 @@ function getRelatedProductList(category, country, keyword, page=1) {
         productRequest(resolve, reject, url);
     });
 }
+
+/**
+ * 
+ * @param {details} JSON_STRUCTURE
+ * - product
+ *   - title:
+ *   - description:
+ *   - feature_bullets:
+ *   - variants:
+ *   - categories:
+ *     - 0
+ *       - category:
+ *       - url:
+ *   - asin:
+ *   - url:
+ *   - reviews:
+ *     - total_reviews:
+ *     - rating:
+ *     - answered_questions:
+ *   - item_available:
+ *   - price: 
+ *     - symbol:
+ *     - currency:
+ *     - current_price:
+ *     - discounted:
+ *     - before_price:
+ *   - bestsellers_rank:
+ *   - main_image:
+ *   - total_images:
+ *   - images:
+ *   - total_videos:
+ *   - videos:
+ *   - delivery_message:
+ *   - product_information:
+ *     - dimensions:
+ *     - weight:
+ *     - manufacturer:
+ *     - brand:
+ *   - badges:
+ *   - sponsored_products:
+ *   - also_bought:
+ *   - other_sellers
+ */
+function getProductCatagoryAndKeyword(details) {
+    let categoryKeywordList;
+    let category = [];
+    let categoryAvailable;
+    let keyword;
+    let productCategories = details.product.categories;
+
+    for (let index in productCategories) {
+        category.push(productCategories[index].category);
+    }
+    /**
+     * category1 > category2 > category3 => category3 > category2 > category1
+     * get product category
+     */
+    category = category.reverse();
+    for (let index of category) {
+        for (let cat in categoryList) {
+            if (index === cat) {
+                categoryAvailable = categoryList[cat];
+                break;
+            }
+        }
+        if (typeof categoryAvailable !== 'undefined') {
+            break;
+        }
+    }
+    if (typeof categoryAvailable === 'undefined') categoryAvailable = 'no_category';
+
+    // get product keyword
+    keyword = keywordExtract(details.product.description, details.product.title);
+
+    categoryKeywordList = {
+        category: categoryAvailable,
+        keywords: keyword
+    };
+    return categoryKeywordList;
+}
+
+// extract keywords
+function keywordExtract(description, title) {
+    let text = title + '. ' + description;
+    // summarize(text, sentences, keywordsInt)
+    let result = summarize(text, 1, 3);
+    let keywords = result.keywords;
+
+    return keywords;
+}
+
 
 function getProductEigenVector(productDetail) {
 
