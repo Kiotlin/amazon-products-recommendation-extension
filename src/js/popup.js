@@ -1,16 +1,22 @@
 var refresh = document.getElementById('refresh');
 var urlInput = document.getElementById('basic-url');
+
+var imgZero = document.getElementById('img-0');
 var imgOne = document.getElementById('img-1');
-var titleOne = document.getElementById('title-1');
-var infoOne = document.getElementById('info-1');
 var imgTwo = document.getElementById('img-2');
-var titleTwo = document.getElementById('title-2');
-var infoTwo = document.getElementById('info-2');
 var imgThree = document.getElementById('img-3');
-var titleThree = document.getElementById('title-3');
-var infoThree = document.getElementById('info-3');
 var imgFour = document.getElementById('img-4');
+
+var titleZero = document.getElementById('title-0');
+var titleOne = document.getElementById('title-1');
+var titleTwo = document.getElementById('title-2');
+var titleThree = document.getElementById('title-3');
 var titleFour = document.getElementById('title-4');
+
+var infoZero = document.getElementById('info-0');
+var infoOne = document.getElementById('info-1');
+var infoTwo = document.getElementById('info-2');
+var infoThree = document.getElementById('info-3');
 var infoFour = document.getElementById('info-4');
 
 // amazon api request information
@@ -37,7 +43,8 @@ var relatedProductList;
 // default vector dimension
 var defaultVector = 1;
 
-refresh.addEventListener('click', async function() {
+// install product's info after inputted
+urlInput.addEventListener('change', async function() {
     urlInputStr = urlInput.value;
 
     // get ASIN ID & its details
@@ -47,11 +54,29 @@ refresh.addEventListener('click', async function() {
     .catch(err => console.log(err));
     console.log(basedProductInfo);
 
+    let data = [];
+    let price = basedProductInfo.product.price.current_price === 0 ? basedProductInfo.product.price.before_price : basedProductInfo.product.price.current_price;
+    data.push(
+        basedProductInfo.product.title, 
+        price, 
+        basedProductInfo.product.reviews.rating, 
+        basedProductInfo.product.main_image, 
+        basedProductInfo.product.url
+    );
+    let dataGroup = [];
+    dataGroup.push(data);
+
+    let recommendedGroup = [[0, 0]];
+    setRecommendedCard(imgZero, titleZero, infoZero, dataGroup, recommendedGroup, 0);
+});
+
+// generate new recommendation products
+refresh.addEventListener('click', async function() {
     // search related products
     let categoryAndKeyword = getProductCatagoryAndKeyword(basedProductInfo);
     let categoryString = categoryAndKeyword.category;
     let keywordString = '';
-    let randomPage = Math.floor(Math.random()*5);
+    let randomPage = Math.floor(Math.random()*10);
     for(let i=0; i<categoryAndKeyword.keywords.length; i++) {
         keywordString += categoryAndKeyword.keywords[i] + ' ';
     }
@@ -86,12 +111,14 @@ refresh.addEventListener('click', async function() {
         dataContainer.push(data);
     }
     let vectorContainer = getProductEigenVector(dataContainer, highestPrice, lowestPrice);
+    console.log(vectorContainer);
     let relatedProductVector = [];
     for (let vec in vectorContainer) {
         let rVector = cosineSimilarity(basedProductVector, vectorContainer[vec]);
         relatedProductVector.push(rVector);
     }
     let recommendedVector = theBiggestFourIndex(relatedProductVector);
+    console.log(recommendedVector);
 
     // generate new product card UI
     setRecommendedCard(imgOne, titleOne, infoOne, dataContainer, recommendedVector, 0);
@@ -323,102 +350,4 @@ function getProductEigenVector(dataGroup, hp, lp) {
     return vectorGroup;
 }
 
-// function for removing duplicate words in array
-function removeDuplicateWords(words) {
-    let stack = [];
-    for (let i=0; i < words.length; i++) {
-        if(!stack.includes(words[i])) {
-            stack.push(words[i]);
-        } else {
-            continue;
-        }
-    }
-    return stack;
-}
 
-/**
- * function for counting the number of occurences
- * @param {Array} standardArr 
- * @param {Array} generatedArr 
- */
-function uniqueOccurrences(standardArr, generatedArr) {
-    let targetVector = [];
-    for (let i=0; i < standardArr.length; i++) {
-        targetVector.push(0);
-    }
-    for (let i=0; i < standardArr.length; i++) {
-        for (let j=0; j < generatedArr.length; j++) {
-            if(standardArr[i] === generatedArr[j]) {
-                targetVector[i]++;
-            }
-        }
-    }
-    return targetVector;
-}
-
-/**
- * function for calculating cosine similarity between two vectors
- * arr1 and arr2 should have the same length
- * @param {Array} arr1 
- * @param {Array} arr2 
- */
-function cosineSimilarity(arr1, arr2) {
-    let deno = 0;
-    let len1 = 0;
-    let len2 = 0;
-    for (let i=0; i < arr1.length; i++) {
-        deno += (arr1[i] * arr2[i]);
-        len1 += (arr1[i] * arr1[i]);
-        len2 += (arr2[i] * arr2[i]);
-    }
-    len1 = Math.sqrt(len1);
-    len2 = Math.sqrt(len2);
-    let cosineSim = deno / (len1 * len2);
-    cosineSim = cosineSim.toFixed(5);
-
-    return cosineSim;
-}
-
-/**
- * return the largest 4 indexs
- * @param arr
- */
-function theBiggestFourIndex(arr) {
-    let arr1 = arr;
-    let st1 = [0, 0];
-    let nd2 = [0, 0];
-    let rd3 = [0, 0];
-    let th4 = [0, 0];
-    let group = [];
-    for (let i=0; i < arr1.length; i++) {
-        if(st1 <= arr1[i]) {
-            st1[0] = arr1[i];
-            st1[1] = i;
-        }
-    }
-    arr1[st1[1]] = 0;
-    for (let i=0; i < arr1.length; i++) {
-        if(nd2 <= arr1[i]) {
-            nd2[0] = arr1[i];
-            nd2[1] = i;
-        }
-    }
-    arr1[nd2[1]] = 0;
-    for (let i=0; i < arr1.length; i++) {
-        if(rd3 <= arr1[i]) {
-            rd3[0] = arr1[i];
-            rd3[1] = i;
-        }
-    }
-    arr1[rd3[1]] = 0;
-    for (let i=0; i < arr1.length; i++) {
-        if(th4 <= arr1[i]) {
-            th4[0] = arr1[i];
-            th4[1] = i;
-        }
-    }
-    arr1[th4[1]] = 0;
-    group.push(st1, nd2, rd3, th4);
-
-    return group;
-}
