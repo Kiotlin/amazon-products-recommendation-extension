@@ -4,6 +4,12 @@ body {
     background-color: white;
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
+a {
+    color: black;
+}
+::-webkit-scrollbar {
+    display: none;
+}
 img {
     width: 100%;
     height: 100%;
@@ -57,10 +63,137 @@ img {
     height: fit-content;
 }
 #rm-card .card-title {
-    margin-bottom: 0.4rem;
+    margin-bottom: 5px;
 }
-#rm-card .cancel {
+.cancel {
     border: transparent;
     background-color: transparent;
     border-radius: 5;
+}
+.card-body {
+    padding: 5px 15px;
+}
+.cube-r {
+    width: 30px;
+    height: 10px;
+    background-color: red;
+    border-radius: 10;
+    margin-bottom: 7px;
+}
+.cube-r.deactive {
+    display: none;
+}
+.cube-y {
+    width: 30px;
+    height: 10px;
+    background-color: #FFC107;
+    border-radius: 10;
+    margin-bottom: 7px;
+}
+.cube-y.deactive {
+    display: none;
+}
+.btn-sm {
+    padding: 0rem 0.5rem 0.2rem 0rem;
+}
+#product-col b {
+    position: absolute;
+    border-color: #666 #fff #fff;
+	border-style: solid;
+    border-width: 4px;
+    margin-top: 6px;
+}
+.collapse-detail {
+    position: relative;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: .25rem;
+}
+#product-detail {
+    margin: 2px 2px;
+    width: 304px;
+    height: 150px;
+}
+.card-1-index { z-index: 4; }
+.card-2-index { z-index: 3; }
+.card-3-index { z-index: 2; }
+.card-4-index { z-index: 1; }
+.ytb-logo {
+    height: 10px;
+    width: 14.333px;
+    opacity: 0.5;
+    transition: 0.3s;
+}
+.ytb-logo:hover {
+    opacity: 1;
+}
+.text-model {
+    max-width:290px;
+    display: block;
+}
+.progress-bar {
+    width: 47%;
+    height: 5px;
+    background-color: #f9e1e3;
+    border-radius: 3px;
+    margin: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.progress-75 {
+    width: 75%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-60 {
+    width: 60%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-23 {
+    width: 23%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-12 {
+    width: 12%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-1 {
+    width: 1%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-13 {
+    width: 13%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-6 {
+    width: 6%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-2 {
+    width: 2%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
+}
+.progress-3 {
+    width: 3%;
+    height: 100%;
+    background-color: #e46a70;
+    border-radius: 3px;
 }

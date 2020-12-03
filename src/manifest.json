@@ -2,7 +2,7 @@
     "name": "Amazon-recommendation in chrome extension",
     "version": "1.0",
     "description": "A product recommendation chrome extension based on Amazon shopping scenario",
-    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "content_security_policy": "script-src 'self' 'unsafe-eval' https://apis.google.com/ https://www.youtube.com/ https://s.ytimg.com/yts/jsbin/www-widgetapi-vflkHHIwh/www-widgetapi.js; object-src 'self'",
     "permissions": ["activeTab", "declarativeContent", "storage"],
     "background": {
         "scripts": ["js/background.js"],
