@@ -31,7 +31,7 @@ var collaYtbFour = document.getElementById('collapseYtb-4');
 
 // amazon api request information
 var x_rapidapi_host = 'amazon-product-reviews-keywords.p.rapidapi.com';
-var x_rapidapi_key = 'c3a7f7f8a9msh520a129aada3ac0p115dbfjsn6cc0487c3120';
+var x_rapidapi_key = 'b916e3f4c4msh3ece47b28ee3e99p15fe66jsn161a29999472';
 var baseUrl = 'https://amazon-product-reviews-keywords.p.rapidapi.com/';
 var productDetailsUrl = baseUrl + 'product/details';
 var productSearchUrl = baseUrl + 'product/search';
@@ -59,6 +59,7 @@ urlInput.addEventListener('change', async function() {
 
     // get ASIN ID & its details
     asinID = urlInputStr.split('/')[splitIndex];
+    console.log('ASINID: ' + asinID);
     await getProductDetails(asinID, shopLocation)
     .then(data => basedProductInfo = data)
     .catch(err => console.log(err));
@@ -87,7 +88,7 @@ refresh.addEventListener('click', async function() {
     let categoryAndKeyword = getProductCatagoryAndKeyword(basedProductInfo);
     let categoryString = categoryAndKeyword.category;
     let keywordString = '';
-    let randomPage = Math.floor(Math.random()*10);
+    let randomPage = Math.floor(Math.random()*2);
     for(let i=0; i<categoryAndKeyword.keywords.length; i++) {
         keywordString += categoryAndKeyword.keywords[i] + ' ';
     }

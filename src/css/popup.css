@@ -1,6 +1,5 @@
 body {
     width: 320px;
-    height: 450px;
     background-color: white;
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
@@ -31,7 +30,6 @@ img {
     padding: 0px;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 0.25rem;
-
 }
 #title {
     margin: 0 4px;
@@ -65,10 +63,59 @@ img {
 #rm-card .card-title {
     margin-bottom: 5px;
 }
-.cancel {
-    border: transparent;
+.dislike {
+    background-image: url('../img/sad.png');
     background-color: transparent;
-    border-radius: 5;
+    width: 15px;
+    height: 15px;
+    display: block;
+    margin: auto;
+    border: none;
+    opacity: 0.5;
+    background-size: contain;
+    transition: 0.3s;
+}
+.dislike:hover {
+    opacity: 1;
+}
+.dislike:focus {
+    outline: none;
+}
+.like {
+    background-image: url('../img/heart.png');
+    background-color: transparent;
+    width: 23px;
+    height: 23px;
+    display: block;
+    margin: auto;
+    border: none;
+    opacity: 0.5;
+    background-size: contain;
+    transition: 0.3s;
+}
+.like:hover {
+    opacity: 1;
+}
+.like:focus {
+    outline: none;
+}
+.cube-b {
+    background-image: url('../img/info.png');
+    background-color: transparent;
+    width: 15px;
+    height: 15px;
+    display: block;
+    margin: auto;
+    border: none;
+    opacity: 0.5;
+    background-size: contain;
+    transition: 0.3s;
+}
+.cube-b:hover {
+    opacity: 1;
+}
+.cube-b:focus {
+    outline: none;
 }
 .card-body {
     padding: 5px 15px;
@@ -116,6 +163,11 @@ img {
     margin: 2px 2px;
     width: 304px;
     height: 150px;
+}
+#product-reason {
+    margin: 2px 2px;
+    width: 304px;
+    height: 130px;
 }
 .card-1-index { z-index: 4; }
 .card-2-index { z-index: 3; }
