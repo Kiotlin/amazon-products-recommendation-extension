@@ -12,144 +12,118 @@
     </style>
 </head>
 <body>
-    <div><p>拡張機能を使用する前に優先順位を設置してください．</p></div>
-    <div><p>Please set the priority of each attribute before using the extension.</p></div>
-    <div>
-        <input type="radio" name="exp1" value="1" checked>
-        <label for="exp1">1　最低</label>
-        <input type="radio" name="exp2" value="1" checked>
-        <label for="exp2">9　最高</label>
-    </div>
+    <div><p>拡張機能を使用する前に一対比較表を設置してください．</p></div>
+    <div><p>Please set the form before using the extension.</p></div>
     <br>
     <table id="priority" border="1" style="width: 500px;">
         <thead>
             <tr>
                 <th>因子</th>
-                <th colspan="5">優先度</th>
+                <th>類似度</th>
+                <th>レビュー数</th>
+                <th>レーティング</th>
+                <th>動画レビュー数</th>
+                <th>動画再生数</th>
             </tr>
         </thead>
         <tbody id="tbody">
             <tr>
                 <th>コサイン類似度</th>
                 <th>
-                    <input type="radio" id="cosineChoice1" name="cosine" value="1">
-                    <label for="contactChoice1">1</label>
+                    <input type="text" id="cosineChoice1" name="cosine" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="cosineChoice2" name="cosine" value="3">
-                    <label for="contactChoice1">3</label>
+                    <input type="text" id="cosineChoice2" name="cosine" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="cosineChoice3" name="cosine" value="5">
-                    <label for="contactChoice1">5</label>
+                    <input type="text" id="cosineChoice3" name="cosine" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="cosineChoice4" name="cosine" value="7">
-                    <label for="contactChoice1">7</label>
+                    <input type="text" id="cosineChoice4" name="cosine" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="cosineChoice5" name="cosine" value="9">
-                    <label for="contactChoice1">9</label>
+                    <input type="text" id="cosineChoice5" name="cosine" style="text-align: center;border: hidden;">
                 </th>
             </tr>
             <tr>
                 <th>レビュー数</th>
                 <th>
-                    <input type="radio" id="reviewChoice1" name="review" value="1">
-                    <label for="contactChoice1">1</label>
+                    <input type="text" id="reviewChoice1" name="review" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="reviewChoice2" name="review" value="3">
-                    <label for="contactChoice1">3</label>
+                    <input type="text" id="reviewChoice2" name="review" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="reviewChoice3" name="review" value="5">
-                    <label for="contactChoice1">5</label>
+                    <input type="text" id="reviewChoice3" name="review" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="reviewChoice4" name="review" value="7">
-                    <label for="contactChoice1">7</label>
+                    <input type="text" id="reviewChoice4" name="review" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="reviewChoice5" name="review" value="9">
-                    <label for="contactChoice1">9</label>
+                    <input type="text" id="reviewChoice5" name="review" style="text-align: center;border: hidden;">
                 </th>
             </tr>
             <tr>
                 <th>レーティング</th>
                 <th>
-                    <input type="radio" id="ratingChoice1" name="rating" value="1">
-                    <label for="contactChoice1">1</label>
+                    <input type="text" id="ratingChoice1" name="rating" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="ratingChoice2" name="rating" value="3">
-                    <label for="contactChoice1">3</label>
+                    <input type="text" id="ratingChoice2" name="rating" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="ratingChoice3" name="rating" value="5">
-                    <label for="contactChoice1">5</label>
+                    <input type="text" id="ratingChoice3" name="rating" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="ratingChoice4" name="rating" value="7">
-                    <label for="contactChoice1">7</label>
+                    <input type="text" id="ratingChoice4" name="rating" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="ratingChoice5" name="rating" value="9">
-                    <label for="contactChoice1">9</label>
+                    <input type="text" id="ratingChoice5" name="rating" style="text-align: center;border: hidden;">
                 </th>
             </tr>
             <tr>
                 <th>動画レビュー数</th>
                 <th>
-                    <input type="radio" id="videoChoice1" name="video" value="1">
-                    <label for="contactChoice1">1</label>
+                    <input type="text" id="videoChoice1" name="video" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="videoChoice2" name="video" value="3">
-                    <label for="contactChoice1">3</label>
+                    <input type="text" id="videoChoice2" name="video" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="videoChoice3" name="video" value="5">
-                    <label for="contactChoice1">5</label>
+                    <input type="text" id="videoChoice3" name="video" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="videoChoice4" name="video" value="7">
-                    <label for="contactChoice1">7</label>
+                    <input type="text" id="videoChoice4" name="video" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="videoChoice5" name="video" value="9">
-                    <label for="contactChoice1">9</label>
+                    <input type="text" id="videoChoice5" name="video" style="text-align: center;border: hidden;">
                 </th>
             </tr>
             <tr>
                 <th>動画再生数</th>
                 <th>
-                    <input type="radio" id="countChoice1" name="videoCount" value="1">
-                    <label for="contactChoice1">1</label>
+                    <input type="text" id="countChoice1" name="videoCount" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="countChoice2" name="videoCount" value="3">
-                    <label for="contactChoice1">3</label>
+                    <input type="text" id="countChoice2" name="videoCount" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="countChoice3" name="videoCount" value="5">
-                    <label for="contactChoice1">5</label>
+                    <input type="text" id="countChoice3" name="videoCount" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="countChoice4" name="videoCount" value="7">
-                    <label for="contactChoice1">7</label>
+                    <input type="text" id="countChoice4" name="videoCount" style="text-align: center;border: hidden;">
                 </th>
                 <th>
-                    <input type="radio" id="countChoice5" name="videoCount" value="9">
-                    <label for="contactChoice1">9</label>
+                    <input type="text" id="countChoice5" name="videoCount" style="text-align: center;border: hidden;">
                 </th>
             </tr>
         </tbody>
     </table>
-    <div><p>各因子の優先順位を重複しても宜しいです．</p></div>
-    <div><p>It doesn't matter to duplicate the priority of each factor.</p></div>
+    <div><p>自分の好みに従って記入してください．</p></div>
+    <div><p>Fill in the form according to your own preferences.</p></div>
     <div id='status'></div>
     <button id="save">保存</button>
 </body>
+    <script src="js/math.js"></script>
     <script src="js/options.js"></script>
 </html>

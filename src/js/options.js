@@ -1,11 +1,16 @@
 var save = document.getElementById('save');
 var prTableBody = document.getElementById('tbody');
+
+math.config({
+    number: 'Fraction'
+});
+var a = math.number(math.fraction('1/3'));
 var prMatrix = [
-    [1, 0, 0, 0, 0],
-    [0, 1, 0, 0, 0],
-    [0, 0, 1, 0, 0],
-    [0, 0, 0, 1, 0],
-    [0, 0, 0, 0, 1],
+    [1, 2, 3, 5, 5],
+    [0.5, 1, 2, 2, 3],
+    [a, 0.5, 1, 3, 2],
+    [0.2, 0.5, a, 1, 0.5],
+    [0.2, a, 0.5, 2, 1],
 ]
 var RI = 1.12;
 var harmonicMean = [];
@@ -27,7 +32,6 @@ save.addEventListener('click', function() {
             prList.push(inputNodes[i].value);
         }
     }
-    createMatrix(prList)
     for (let i=0; i<5; i++) {
         let count = 0;
         let mean = 0;
@@ -49,7 +53,7 @@ save.addEventListener('click', function() {
 
     let table = createTable(prMatrix, harmonicMean, omomi);
 
-    let evaluation = evaluata(prMatrix, omomi);
+    let evaluation = evaluate(prMatrix, omomi);
     console.log(evaluation);
     let CR = evaluation[1] / RI;
     console.log(CR);
@@ -61,7 +65,7 @@ save.addEventListener('click', function() {
     status.appendChild(p);
 });
 
-function evaluata(matrix, omomi) {
+function evaluate(matrix, omomi) {
     let result = [];
     let ramudar = 0;
     let ci = 0;
@@ -81,42 +85,6 @@ function evaluata(matrix, omomi) {
     ci = (ramudar - n) / (n - 1 );
 
     return [ramudar, ci];
-}
-
-function createMatrix(prList) {
-    for (let v=0; v<prList.length; v++) {
-        for (let i=0; i<prList.length; i++) {
-            switch((prList[v]-prList[i])) {
-                case -2:
-                    prMatrix[v][i] = 1/3;
-                    break;
-                case -4:
-                    prMatrix[v][i] = 1/5;
-                    break;
-                case -6:
-                    prMatrix[v][i] = 1/7;
-                    break;
-                case -8:
-                    prMatrix[v][i] = 1/9;
-                    break;
-                case 8:
-                    prMatrix[v][i] = 9;
-                    break;
-                case 6:
-                    prMatrix[v][i] = 7;
-                    break;
-                case 4:
-                    prMatrix[v][i] = 5;
-                    break;
-                case 2:
-                    prMatrix[v][i] = 3;
-                    break;
-                case 0:
-                    prMatrix[v][i] = 1;
-                    break;
-            }
-        }
-    }
 }
 
 function createTable(data, harmonicMean, omomi) {
@@ -145,7 +113,11 @@ function createTable(data, harmonicMean, omomi) {
         tr.appendChild(tth);
         for (let j=0; j<5; j++) {
             let th = document.createElement('th');
-            th.innerHTML = data[i][j];
+            if(Number.isInteger(data[i][j])){
+                th.innerHTML = data[i][j];
+            }else {
+                th.innerHTML = math.format(math.fraction(data[i][j]));
+            }
             tr.appendChild(th);
         }
 
