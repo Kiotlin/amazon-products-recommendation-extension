@@ -1,5 +1,5 @@
 // youtube api request information
-var apiKey = 'AIzaSyDVWMwk7JKk7nYXXYe38RNn1httcd91yH8';
+var apiKey = 'AIzaSyAzZ9zDUhbl9wRic80yAVN_R_oglKsv98c';
 var discoveryDocs = 'https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest';
 var searchPart = ['snippet'];
 var keywordForYtb = [];

@@ -97,3 +97,16 @@ function theBiggestFourIndex(arr) {
 
     return group;
 }
+
+/**
+ * For sorting array
+ * @param {index} p 
+ * @returns 
+ */
+function compare(p){
+    return function(m,n){
+        var a = m[p];
+        var b = n[p];
+        return b - a; //降序
+    }
+}

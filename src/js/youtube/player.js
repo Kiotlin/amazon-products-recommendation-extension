@@ -14,7 +14,7 @@ var player4;
 function onYouTubeIframeAPIReady() {
     player1 = new YT.Player('player1', {
         height: '150',
-        width: '302',
+        width: '100%',
         videoId: '',
         events: {
             'onReady': onPlayerReady,
@@ -23,7 +23,7 @@ function onYouTubeIframeAPIReady() {
     });
     player2 = new YT.Player('player2', {
         height: '150',
-        width: '302',
+        width: '100%',
         videoId: '',
         events: {
             'onReady': onPlayerReady,
@@ -32,7 +32,7 @@ function onYouTubeIframeAPIReady() {
     });
     player3 = new YT.Player('player3', {
         height: '150',
-        width: '302',
+        width: '100%',
         videoId: '',
         events: {
             'onReady': onPlayerReady,
@@ -41,7 +41,7 @@ function onYouTubeIframeAPIReady() {
     });
     player4 = new YT.Player('player4', {
         height: '150',
-        width: '302',
+        width: '100%',
         videoId: '',
         events: {
             'onReady': onPlayerReady,

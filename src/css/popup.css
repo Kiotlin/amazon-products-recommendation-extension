@@ -1,5 +1,5 @@
 body {
-    width: 320px;
+    width: 500px;
     background-color: white;
     font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
 }
@@ -42,6 +42,9 @@ img {
 #rm-title div{
     font-size: 1em;
 }
+#dropdownBtn {
+    border: 0px;
+}
 #refresh {
     border: 0px;
 }
@@ -60,14 +63,21 @@ img {
     max-height: 70px;
     height: fit-content;
 }
-#rm-card .card-title {
-    margin-bottom: 5px;
+.card-margin-top {
+    margin-top: 8px;
 }
-.dislike {
-    background-image: url('../img/sad.png');
+.dpHistory {
+    position: absolute; 
+    transform: translate3d(0px, 38px, 0px); 
+    top: 0px; 
+    left: 0px; 
+    will-change: transform;
+}
+.swap {
+    background-image: url('../img/swap.png');
     background-color: transparent;
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     display: block;
     margin: auto;
     border: none;
@@ -75,10 +85,10 @@ img {
     background-size: contain;
     transition: 0.3s;
 }
-.dislike:hover {
+.swap:hover {
     opacity: 1;
 }
-.dislike:focus {
+.swap:focus {
     outline: none;
 }
 .like {
@@ -118,7 +128,7 @@ img {
     outline: none;
 }
 .card-body {
-    padding: 5px 15px;
+    padding: 5px 10px;
 }
 .cube-r {
     width: 30px;
@@ -131,7 +141,7 @@ img {
     display: none;
 }
 .cube-y {
-    width: 30px;
+    width: 45px;
     height: 10px;
     background-color: #FFC107;
     border-radius: 10;
@@ -139,6 +149,11 @@ img {
 }
 .cube-y.deactive {
     display: none;
+}
+.cube-y-word {
+    width: 45px;
+    height: 10px;
+    color: #fff;
 }
 .btn-sm {
     padding: 0rem 0.5rem 0.2rem 0rem;
@@ -161,12 +176,12 @@ img {
 }
 #product-detail {
     margin: 2px 2px;
-    width: 304px;
+    width: 100%;
     height: 150px;
 }
 #product-reason {
     margin: 2px 2px;
-    width: 304px;
+    width: 100%;
     height: 130px;
 }
 .card-1-index { z-index: 4; }
@@ -186,9 +201,30 @@ img {
     max-width:290px;
     display: block;
 }
+.more {
+    margin-left: 7px;
+}
 .progress-bar {
     width: 47%;
     height: 5px;
+    background-color: #f9e1e3;
+    border-radius: 3px;
+    margin: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.progress-bar-conpre {
+    width: 65%;
+    height: 5px;
+    background-color: #f9e1e3;
+    border-radius: 3px;
+    margin: auto;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+.progress-bar-mini {
+    width: 40%;
+    height: 3px;
     background-color: #f9e1e3;
     border-radius: 3px;
     margin: auto;
@@ -222,23 +258,29 @@ img {
 .progress-2680 {
     width: 26.80%;
     height: 100%;
-    background-color: #e46a70;
+    background-color: rgb(54, 162, 235);
     border-radius: 3px;
 }
 .progress-86 {
     width: 86%;
     height: 100%;
-    background-color: #e46a70;
+    background-color: rgb(255, 205, 86);
+    border-radius: 3px;
+}
+.progress-4290 {
+    width: 42.90%;
+    height: 100%;
+    background-color: rgb(70, 191, 189);
     border-radius: 3px;
 }
 .progress-6638 {
     width: 66.38%;
     height: 100%;
-    background-color: #e46a70;
+    background-color: rgb(77, 83, 96);
     border-radius: 3px;
 }
-.progress-4290 {
-    width: 42.90%;
+.progress-5083 {
+    width: 50.83%;
     height: 100%;
     background-color: #e46a70;
     border-radius: 3px;
