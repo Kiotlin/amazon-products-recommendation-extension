@@ -82,7 +82,7 @@ class CompreCaculator {
      * @returns the score for number of reviews
      */
     getNRPoint() {
-        return this.productEigen.nr / 10000 * 100;
+        return this.productEigen.nr > 10000 ? 100 : this.productEigen.nr / 10000 * 100;
     }
 
     /**

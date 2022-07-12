@@ -42,7 +42,7 @@ function ytbSearch(kw) {
 
 function ytbGetKeyword(dataContainer, rcmVector) {
     for(let index in rcmVector) {
-        let title = dataContainer[rcmVector[index][1]][0];
+        let title = dataContainer[rcmVector[index].index][0];
         let slice = title.split(' ').slice(0, 6).join(' ');
         keywordForYtb.push(slice);
     }

@@ -147,6 +147,17 @@ urlInput.addEventListener('change', async function () {
 let domainCode = 'com';
 let sortBy = 'relevanceblender';
 let page = 5;
+
+let collaReasonOne = document.querySelector('#collapseReason-1');
+let collaReasonTwo = document.querySelector('#collapseReason-2');
+let collaReasonThree = document.querySelector('#collapseReason-3');
+let collaReasonFour = document.querySelector('#collapseReason-4');
+
+let quickGlanceOne = document.querySelector('#quick-glance');
+let quickGlanceTwo = document.querySelector('#quick-glance-2');
+let quickGlanceThree = document.querySelector('#quick-glance-3');
+let quickGlanceFour = document.querySelector('#quick-glance-4');
+
 refresh.addEventListener('click', async function () {
     // save searching history
     let history = {
@@ -246,10 +257,22 @@ refresh.addEventListener('click', async function () {
     for (let index in finalEigenObject) {
         const cCalculator = new CompreCaculator(userAHP, finalEigenObject[index]);
         let cPoint = cCalculator.cPoint;
-        let box = [cPoint, index];
+        let criteriaPoint = {
+            si: cCalculator.getSIPoint(),
+            ra: cCalculator.getRAPoint(),
+            nr: cCalculator.getNRPoint(),
+            nvr: cCalculator.getNVRPoint(),
+            nvp: cCalculator.getNVPPoint(),
+        };
+        
+        let box = {
+            cPoint: cPoint,
+            index: index,
+            criteriaPoint: criteriaPoint
+        };
         recommendedVector.push(box);
     }
-    recommendedVector = recommendedVector.sort(compare(0)).slice(0, 4);
+    recommendedVector = recommendedVector.sort((a, b) => (b.cPoint - a.cPoint)).slice(0, 4);
 
     // recommendedVector = theBiggestFourIndex(relatedProductVector);
     recVec = recommendedVector;
@@ -272,16 +295,33 @@ refresh.addEventListener('click', async function () {
     let percentageGroup4 = [75, 13, 6, 2, 3];
 
     // collapse array
-    collaOneYtbOne = [collaOne, collaYtbOne];
-    collaTwoYtbTwo = [collaTwo, collaYtbTwo];
-    collaThreeYtbThree = [collaThree, collaYtbThree];
-    collaFourYtbFour = [collaFour, collaYtbFour];
+    colla1 = [collaOne, collaYtbOne, collaReasonOne, quickGlanceOne];
+    colla2 = [collaTwo, collaYtbTwo, collaReasonTwo, quickGlanceTwo];
+    colla3 = [collaThree, collaYtbThree, collaReasonThree, quickGlanceThree];
+    colla4 = [collaFour, collaYtbFour, collaReasonFour, quickGlanceFour];
 
     // generate new product card UI
-    setRecommendedCard(imgOne, titleOne, infoOne, collaOneYtbOne, dataContainer, recommendedVector, 0, videoInfos[0], barGroup1, percentageGroup1);
-    setRecommendedCard(imgTwo, titleTwo, infoTwo, collaTwoYtbTwo, dataContainer, recommendedVector, 1, videoInfos[1], barGroup2, percentageGroup2);
-    setRecommendedCard(imgThree, titleThree, infoThree, collaThreeYtbThree, dataContainer, recommendedVector, 2, videoInfos[2], barGroup3, percentageGroup3);
-    setRecommendedCard(imgFour, titleFour, infoFour, collaFourYtbFour, dataContainer, recommendedVector, 3, videoInfos[3], barGroup4, percentageGroup4);
+    setRecommendedCard(imgOne, titleOne, infoOne, colla1, dataContainer, recommendedVector, 0, videoInfos[0], barGroup1, percentageGroup1);
+    setRecommendedCard(imgTwo, titleTwo, infoTwo, colla2, dataContainer, recommendedVector, 1, videoInfos[1], barGroup2, percentageGroup2);
+    setRecommendedCard(imgThree, titleThree, infoThree, colla3, dataContainer, recommendedVector, 2, videoInfos[2], barGroup3, percentageGroup3);
+    setRecommendedCard(imgFour, titleFour, infoFour, colla4, dataContainer, recommendedVector, 3, videoInfos[3], barGroup4, percentageGroup4);
+
+    myChart = new Chart(
+        document.querySelector('#myChart'),
+        config,
+    );
+    myChart2 = new Chart(
+        document.getElementById('myChart-2'),
+        config2,
+    );
+    myChart3 = new Chart(
+        document.getElementById('myChart-3'),
+        config3,
+    );
+    myChart4 = new Chart(
+        document.getElementById('myChart-4'),
+        config4,
+    );
 
     // Extract keywords for each result
     let resultKeywordList = [];
@@ -294,19 +334,19 @@ refresh.addEventListener('click', async function () {
     let amazonDetailList = [];
     let amazonUrl = 'https://www.amazon.com/dp/';
 
-    await getProductDetails(amazonUrl + dataContainer[recommendedVector[0][1]][6])
+    await getProductDetails(amazonUrl + dataContainer[recommendedVector[0].index][6])
         .then(data => amazonDetailList.push(data))
         .catch(err => console.log(err));
 
-    await getProductDetails(amazonUrl + dataContainer[recommendedVector[1][1]][6])
+    await getProductDetails(amazonUrl + dataContainer[recommendedVector[1].index][6])
         .then(data => amazonDetailList.push(data))
         .catch(err => console.log(err));
 
-    await getProductDetails(amazonUrl + dataContainer[recommendedVector[2][1]][6])
+    await getProductDetails(amazonUrl + dataContainer[recommendedVector[2].index][6])
         .then(data => amazonDetailList.push(data))
         .catch(err => console.log(err));
 
-    await getProductDetails(amazonUrl + dataContainer[recommendedVector[3][1]][6])
+    await getProductDetails(amazonUrl + dataContainer[recommendedVector[3].index][6])
         .then(data => amazonDetailList.push(data))
         .catch(err => console.log(err));
 
@@ -409,12 +449,12 @@ function swapImpl(num) {
  */
 function setRecommendedCard(imgSet, titleSet, infoSet, collaSet, dataGroup, recomVec, num, videoinfo, barGroup, pGroup) {
     // infos
-    let title = dataGroup[recomVec[num][1]][0];
-    let price = dataGroup[recomVec[num][1]][1];
-    let rating = dataGroup[recomVec[num][1]][2];
-    let img = dataGroup[recomVec[num][1]][3];
-    let url = dataGroup[recomVec[num][1]][4];
-    let total_reviews = dataGroup[recomVec[num][1]][5];
+    let title = dataGroup[recomVec[num].index][0];
+    let price = dataGroup[recomVec[num].index][1];
+    let rating = dataGroup[recomVec[num].index][2];
+    let img = dataGroup[recomVec[num].index][3];
+    let url = dataGroup[recomVec[num].index][4];
+    let total_reviews = dataGroup[recomVec[num].index][5];
 
     imgSet.setAttribute('src', img);
 
@@ -445,6 +485,166 @@ function setRecommendedCard(imgSet, titleSet, infoSet, collaSet, dataGroup, reco
     let collYtbNum = num + 1;
     setCardCollapse(collaSet[0], title, total_reviews, rating, barGroup, pGroup);
     setYtbCollapse(collaSet[1], videoinfo[0], collYtbNum);
+    setCollapseReason(collaSet[2], recomVec[num]);
+    setQuickGlance(collaSet[3], recomVec[num], num);
+}
+
+function setQuickGlance(collapse, pointGroup, index) {
+    // initialize chart data structure
+    datas[index].datasets[0].data = [
+        pointGroup.criteriaPoint.si.toFixed(2),
+        pointGroup.criteriaPoint.ra.toFixed(2),
+        pointGroup.criteriaPoint.nr.toFixed(2),
+        pointGroup.criteriaPoint.nvr.toFixed(2),
+        pointGroup.criteriaPoint.nvp.toFixed(2),
+    ];
+
+    function createCriterionBar(criterionName, criterionPoint) {
+        let point = criterionPoint.toFixed(2);
+
+        let newDivOuter = document.createElement('div');
+        newDivOuter.setAttribute('class', 'row');
+
+        let newDivInner = document.createElement('div');
+        newDivInner.setAttribute('class', 'progress-bar-mini');
+        let progressStyle = document.createElement('div');
+        progressStyle.style.width = point + '%';
+        progressStyle.style.height = '100%';
+        progressStyle.style.borderRadius = '3px';
+        progressStyle.style.backgroundColor = criterionName === 'SI'? '#e46a70' :
+                criterionName === 'NR' ? 'rgb(54, 162, 235)' :
+                criterionName === 'RA' ? 'rgb(255, 205, 86)' :
+                criterionName === 'NVR' ? 'rgb(77, 83, 96)' : 'rgb(70, 191, 189)';
+        newDivInner.appendChild(progressStyle);
+
+        let newSmallPoint = document.createElement('small');
+        newSmallPoint.style.fontSize = '30%';
+        let newSpanPoint = document.createElement('span');
+        newSpanPoint.setAttribute('class', 'ml-0 text-muted');
+        newSpanPoint.innerHTML = point == '100.00' ? 100 : point;
+        newSmallPoint.appendChild(newSpanPoint);
+
+        newDivOuter.appendChild(newDivInner);
+        newDivOuter.appendChild(newSmallPoint);
+
+        return newDivOuter;
+    }
+
+    const newDivCPointBarOuter = document.createElement('div');
+    newDivCPointBarOuter.setAttribute('class', 'progress-bar-conpre');
+    const newDivCPointBar = document.createElement('div');
+    newDivCPointBar.style.width = pointGroup.cPoint.toFixed(2) + '%';
+    newDivCPointBar.style.height = '100%';
+    newDivCPointBar.style.backgroundColor = '#e46a70';
+    newDivCPointBar.style.borderRadius = '3px';
+    newDivCPointBarOuter.appendChild(newDivCPointBar);
+
+    const newSmallCPoint = document.createElement('small');
+    const newSpanCPoint = document.createElement('span');
+    newSpanCPoint.setAttribute('class', 'ml-0 text-muted');
+    newSpanCPoint.innerHTML = pointGroup.cPoint.toFixed(2);
+    newSmallCPoint.appendChild(newSpanCPoint);
+
+    const newDivChartOuter = document.createElement('div');
+    newDivChartOuter.style.width = '45%';
+    newDivChartOuter.setAttribute('class', 'd-flex');
+    let newCanvas = document.createElement('canvas');
+    let chartID = index === 0 ? 'myChart' : 
+            index === 1 ? 'myChart-2' : 
+            index === 2 ? 'myChart-3' : 'myChart-4';
+    newCanvas.setAttribute('id', chartID);
+    newCanvas.setAttribute('class', 'align-self-center');
+    newCanvas.setAttribute('width', '67');
+    newCanvas.setAttribute('height', '67');
+    newDivChartOuter.appendChild(newCanvas);
+
+    const newDivCriteriaOuter = document.createElement('div');
+    newDivCriteriaOuter.style.width = '45%';
+    newDivCriteriaOuter.style.marginLeft = '10px';
+    newDivCriteriaOuter.appendChild(createCriterionBar('SI', pointGroup.criteriaPoint.si));
+    newDivCriteriaOuter.appendChild(createCriterionBar('NR', pointGroup.criteriaPoint.nr));
+    newDivCriteriaOuter.appendChild(createCriterionBar('RA', pointGroup.criteriaPoint.ra));
+    newDivCriteriaOuter.appendChild(createCriterionBar('NVR', pointGroup.criteriaPoint.nvr));
+    newDivCriteriaOuter.appendChild(createCriterionBar('NVP', pointGroup.criteriaPoint.nvp));
+
+    const newDivOuter = document.createElement('div');
+    newDivOuter.setAttribute('class', 'row no-gutters');
+    newDivOuter.style.marginTop = '2px';
+    // appending into newDivOuter operation
+    newDivOuter.appendChild(newDivCPointBarOuter);
+    newDivOuter.appendChild(newSmallCPoint);
+    newDivOuter.appendChild(newDivChartOuter);
+    newDivOuter.appendChild(newDivCriteriaOuter);
+
+    collapse.innerHTML = '';
+    collapse.appendChild(newDivOuter);
+}
+
+function setCollapseReason(collapse, pointGroup) {
+    function createCriterionBar(criterionName, criterionPoint) {
+        let point = criterionPoint.toFixed(2);
+
+        let newDivOuter = document.createElement('div');
+        newDivOuter.setAttribute('class', 'row no-gutters');
+
+        let newSmallCriterion = document.createElement('small');
+        newSmallCriterion.setAttribute('class', 'text-muted');
+        let newSpanCriterion = document.createElement('span');
+        newSpanCriterion.setAttribute('class', 'ml-2 text-model');
+        newSpanCriterion.innerHTML = criterionName;
+        newSmallCriterion.appendChild(newSpanCriterion);
+
+        let newDivInner = document.createElement('div');
+        newDivInner.setAttribute('class', 'progress-bar');
+        let progressStyle = document.createElement('div');
+        progressStyle.style.width = point + '%';
+        progressStyle.style.height = '100%';
+        progressStyle.style.borderRadius = '3px';
+        progressStyle.style.backgroundColor = criterionName === 'SI'? '#e46a70' :
+                criterionName === 'NR' ? 'rgb(54, 162, 235)' :
+                criterionName === 'RA' ? 'rgb(255, 205, 86)' :
+                criterionName === 'NVR' ? 'rgb(77, 83, 96)' : 'rgb(70, 191, 189)';
+        newDivInner.appendChild(progressStyle);
+
+        let newSmallPoint = document.createElement('small');
+        newSmallPoint.setAttribute('class', 'text-muted');
+        let newSpanPoint = document.createElement('span');
+        newSpanPoint.setAttribute('class', 'ml-2');
+        newSpanPoint.innerHTML = point + ' Points';
+        newSmallPoint.appendChild(newSpanPoint);
+
+        newDivOuter.appendChild(newSmallCriterion);
+        newDivOuter.appendChild(newDivInner);
+        newDivOuter.appendChild(newSmallPoint);
+
+        return newDivOuter;
+    }
+
+    let newDiv = document.createElement('div');
+    newDiv.setAttribute('class', 'mt-2');
+    newDiv.appendChild(createCriterionBar('SI', pointGroup.criteriaPoint.si));
+    newDiv.appendChild(createCriterionBar('NR', pointGroup.criteriaPoint.nr));
+    newDiv.appendChild(createCriterionBar('RA', pointGroup.criteriaPoint.ra));
+    newDiv.appendChild(createCriterionBar('NVR', pointGroup.criteriaPoint.nvr));
+    newDiv.appendChild(createCriterionBar('NVP', pointGroup.criteriaPoint.nvp));
+
+    let newDivCScore = document.createElement('div');
+    newDivCScore.setAttribute('class', 'row no-gutters');
+    let newSpanCScoreTitle = document.createElement('span');
+    newSpanCScoreTitle.setAttribute('class', 'ml-2 text-model');
+    newSpanCScoreTitle.innerHTML = 'Comprehensive Score:';
+    let newSpanCScore = document.createElement('span');
+    newSpanCScore.setAttribute('class', 'ml-2');
+    newSpanCScore.innerHTML = pointGroup.cPoint.toFixed(2) + ' Points';
+    newDivCScore.appendChild(newSpanCScoreTitle);
+    newDivCScore.appendChild(newSpanCScore);
+    newDiv.appendChild(newDivCScore);
+
+    let newDivOuter = document.createElement('div');
+    newDivOuter.setAttribute('class', 'collapse-detail');
+    newDivOuter.appendChild(newDiv);
+    collapse.innerHTML = '';
+    collapse.appendChild(newDivOuter);
 }
 
 function setCoverCard(imgSet, titleSet, infoSet, data) {
@@ -479,7 +679,7 @@ function setTiktokModalDetails(modalGroup, tiktokList, num) {
             commentCount: infoSavingList[i].comment_count,
             shareCount: infoSavingList[i].share_count,
             avatar: infoSavingList[i].author.avatar,
-            nickname: infoSavingList[i].author.nickname
+            nickname: infoSavingList[i].author.nickname,
         };
         extractedList.push(temp);
     }
