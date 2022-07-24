@@ -4,10 +4,16 @@
     <style>
         body {
             background-color: white;
-            font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
         }
         .blue{
             color: blue;
+        }
+        .w-2 {
+            width: 500px;
+        }
+        th > input {
+            text-align: center;
+            border: hidden;
         }
     </style>
 </head>
@@ -30,91 +36,271 @@
             <tr>
                 <th>コサイン類似度</th>
                 <th>
-                    <input type="text" id="cosineChoice1" name="cosine" style="text-align: center;border: hidden;">
+                    <span type="text" id="cosineChoice1" name="t11">1</span>
                 </th>
                 <th>
-                    <input type="text" id="cosineChoice2" name="cosine" style="text-align: center;border: hidden;">
+                    <select type="text" id="cosineChoice2" name="t12">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
                 <th>
-                    <input type="text" id="cosineChoice3" name="cosine" style="text-align: center;border: hidden;">
+                    <select type="text" id="cosineChoice3" name="t13">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
                 <th>
-                    <input type="text" id="cosineChoice4" name="cosine" style="text-align: center;border: hidden;">
+                    <select type="text" id="cosineChoice4" name="t14">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
                 <th>
-                    <input type="text" id="cosineChoice5" name="cosine" style="text-align: center;border: hidden;">
+                    <select type="text" id="cosineChoice5" name="t15">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
             </tr>
             <tr>
                 <th>レビュー数</th>
                 <th>
-                    <input type="text" id="reviewChoice1" name="review" style="text-align: center;border: hidden;">
+                    <span type="text" id="reviewChoice1" name="t21"></span>
                 </th>
                 <th>
-                    <input type="text" id="reviewChoice2" name="review" style="text-align: center;border: hidden;">
+                    <span type="text" id="reviewChoice2" name="t22">1</span>
                 </th>
                 <th>
-                    <input type="text" id="reviewChoice3" name="review" style="text-align: center;border: hidden;">
+                    <select type="text" id="reviewChoice3" name="t23">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
                 <th>
-                    <input type="text" id="reviewChoice4" name="review" style="text-align: center;border: hidden;">
+                    <select type="text" id="reviewChoice4" name="t24">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
                 <th>
-                    <input type="text" id="reviewChoice5" name="review" style="text-align: center;border: hidden;">
+                    <select type="text" id="reviewChoice5" name="t25">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
             </tr>
             <tr>
                 <th>レーティング</th>
                 <th>
-                    <input type="text" id="ratingChoice1" name="rating" style="text-align: center;border: hidden;">
+                    <span type="text" id="ratingChoice1" name="t31"></span>
                 </th>
                 <th>
-                    <input type="text" id="ratingChoice2" name="rating" style="text-align: center;border: hidden;">
+                    <span type="text" id="ratingChoice2" name="t32"></span>
                 </th>
                 <th>
-                    <input type="text" id="ratingChoice3" name="rating" style="text-align: center;border: hidden;">
+                    <span type="text" id="ratingChoice3" name="t33">1</span>
                 </th>
                 <th>
-                    <input type="text" id="ratingChoice4" name="rating" style="text-align: center;border: hidden;">
+                    <select type="text" id="ratingChoice4" name="t34">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
                 <th>
-                    <input type="text" id="ratingChoice5" name="rating" style="text-align: center;border: hidden;">
+                    <select type="text" id="ratingChoice5" name="t35">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
             </tr>
             <tr>
                 <th>動画レビュー数</th>
                 <th>
-                    <input type="text" id="videoChoice1" name="video" style="text-align: center;border: hidden;">
+                    <span type="text" id="videoChoice1" name="t41"></span>
                 </th>
                 <th>
-                    <input type="text" id="videoChoice2" name="video" style="text-align: center;border: hidden;">
+                    <span type="text" id="videoChoice2" name="t42"></span>
                 </th>
                 <th>
-                    <input type="text" id="videoChoice3" name="video" style="text-align: center;border: hidden;">
+                    <span type="text" id="videoChoice3" name="t43"></span>
                 </th>
                 <th>
-                    <input type="text" id="videoChoice4" name="video" style="text-align: center;border: hidden;">
+                    <span type="text" id="videoChoice4" name="t44">1</span>
                 </th>
                 <th>
-                    <input type="text" id="videoChoice5" name="video" style="text-align: center;border: hidden;">
+                    <select type="text" id="videoChoice5" name="t45">
+                        <option value="9">9</option>
+                        <option value="8">8</option>
+                        <option value="7">7</option>
+                        <option value="6">6</option>
+                        <option value="5">5</option>
+                        <option value="4">4</option>
+                        <option value="3">3</option>
+                        <option value="2">2</option>
+                        <option value="1">1</option>
+                        <option value="-2">1/2</option>
+                        <option value="-3">1/3</option>
+                        <option value="-4">1/4</option>
+                        <option value="-5">1/5</option>
+                        <option value="-6">1/6</option>
+                        <option value="-7">1/7</option>
+                        <option value="-8">1/8</option>
+                        <option value="-9">1/9</option>
+                    </select>
                 </th>
             </tr>
             <tr>
                 <th>動画再生数</th>
                 <th>
-                    <input type="text" id="countChoice1" name="videoCount" style="text-align: center;border: hidden;">
+                    <span type="text" id="countChoice1" name="videoCount"></span>
                 </th>
                 <th>
-                    <input type="text" id="countChoice2" name="videoCount" style="text-align: center;border: hidden;">
+                    <span type="text" id="countChoice2" name="videoCount"></span>
                 </th>
                 <th>
-                    <input type="text" id="countChoice3" name="videoCount" style="text-align: center;border: hidden;">
+                    <span type="text" id="countChoice3" name="videoCount"></span>
                 </th>
                 <th>
-                    <input type="text" id="countChoice4" name="videoCount" style="text-align: center;border: hidden;">
+                    <span type="text" id="countChoice4" name="videoCount"></span>
                 </th>
                 <th>
-                    <input type="text" id="countChoice5" name="videoCount" style="text-align: center;border: hidden;">
+                    <span type="text" id="countChoice5" name="videoCount">1</span>
                 </th>
             </tr>
         </tbody>

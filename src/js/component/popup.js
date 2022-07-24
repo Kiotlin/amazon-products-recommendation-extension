@@ -56,8 +56,8 @@ let swap3 = document.getElementById('swap-3');
 let swap4 = document.getElementById('swap-4');
 
 // Authorization key
-let axesso_api_key = '4246e3be-56fa-45a2-95cb-2006a39cfeba';
-let x_rapidapi_key_tiktok = 'c3a7f7f8a9msh520a129aada3ac0p115dbfjsn6cc0487c3120';
+let AXESSO_API_KEY = '4246e3be-56fa-45a2-95cb-2006a39cfeba';
+let X_RAPIDAPI_KEY_TIKTOK = 'c3a7f7f8a9msh520a129aada3ac0p115dbfjsn6cc0487c3120';
 
 // amazon api - request product information
 let amazonUrl = 'https://www.amazon.com';
@@ -87,36 +87,22 @@ let recVec;
 let defaultVector = 1;
 
 // Default AHP Vector
-let userAHP = {
-    si: 0.2602,
-    ra: 0.5028,
-    nr: 0.0348,
-    nvr: 0.1343,
-    nvp: 0.0678
-};
+let userAHP;
+chrome.storage.sync.get(['userAHP'], function (items) {
+    userAHP = items.userAHP || {
+        si: 0.2602,
+        ra: 0.5028,
+        nr: 0.0348,
+        nvr: 0.1343,
+        nvp: 0.0678
+    };
+    console.log(userAHP);
+});
 
 // install searching history 
 let searchHistory = [];
 let dpMenu = document.getElementById('dpMenu');
 let dpBtn = document.getElementById('dropdownBtn');
-// dpBtn.onclick = function() {
-//     if (searchHistory.length == 0) return;
-//     let elm = dpMenu.children;
-//     for (let i = 0; i <= elm.length; i++) {
-//         elm[i].onfocus = historyClick(searchHistory[i]);
-//     }
-// };
-// urlInput.addEventListener('focus', function() {
-//     console.log(searchHistory);
-//     if (searchHistory.length == 0) return;
-//     else {
-//         dpMenu.setAttribute('class', 'dropdown-menu show dpHistory');
-//     }
-// });
-
-// dpMenu.addEventListener('blur', function() {
-//     dpMenu.setAttribute('class', 'dropdown-menu');
-// });
 
 // install product's info after inputted
 urlInput.addEventListener('change', async function () {
@@ -977,7 +963,7 @@ function productRequest(resolve, reject, url) {
         "method": "GET",
         "headers": {
             "Content-Type": "application/json",
-            "axesso-api-key": axesso_api_key
+            "axesso-api-key": AXESSO_API_KEY
         }
     })
         .then(response => {
@@ -997,7 +983,7 @@ function tiktokVideoRequest(resolve, reject, url) {
         "headers": {
             "Content-Type": "application/json",
             "x-rapidapi-host": "tiktok-video-no-watermark2.p.rapidapi.com",
-            "x-rapidapi-key": x_rapidapi_key_tiktok
+            "x-rapidapi-key": X_RAPIDAPI_KEY_TIKTOK
         }
     })
         .then(response => {
