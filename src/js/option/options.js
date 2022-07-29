@@ -20,26 +20,20 @@ let weights = [];
 const RI = 1.12;
 
 function restoreOption() {
-  chrome.storage.sync.get(
-    [
-      'configured',
-      'cMatrix',
-    ],
-    function (items) {
-      if (items.configured) {
-        t12.value = items.cMatrix.t12;
-        t13.value = items.cMatrix.t13;
-        t14.value = items.cMatrix.t14;
-        t15.value = items.cMatrix.t15;
-        t23.value = items.cMatrix.t23;
-        t24.value = items.cMatrix.t24;
-        t25.value = items.cMatrix.t25;
-        t34.value = items.cMatrix.t34;
-        t35.value = items.cMatrix.t35;
-        t45.value = items.cMatrix.t45;
-      }
+  chrome.storage.sync.get(["configured", "cMatrix"], function (items) {
+    if (items.configured) {
+      t12.value = items.cMatrix.t12;
+      t13.value = items.cMatrix.t13;
+      t14.value = items.cMatrix.t14;
+      t15.value = items.cMatrix.t15;
+      t23.value = items.cMatrix.t23;
+      t24.value = items.cMatrix.t24;
+      t25.value = items.cMatrix.t25;
+      t34.value = items.cMatrix.t34;
+      t35.value = items.cMatrix.t35;
+      t45.value = items.cMatrix.t45;
     }
-  );
+  });
 }
 
 function ahpCalc() {
@@ -105,13 +99,20 @@ function ahpCalc() {
   let wTable = createWeightTable(weights);
 
   // explanations for ahp reliability
-  let comparison_info = CR < 0.1 ? " < 0.1" : " >= 0.1";
-  let info = "λ = " + evaluation.lambda + "<br>" + 
-          "CI = " + evaluation.ci + "<br>" + 
-          "CR = " + CR + comparison_info;
+  let comparison_info = CR < 0.15 ? " < 0.15" : " >= 0.15";
+  let info =
+    "λ = " +
+    evaluation.lambda +
+    "<br>" +
+    "CI = " +
+    evaluation.ci +
+    "<br>" +
+    "CR = " +
+    CR +
+    comparison_info;
 
   let status = document.getElementById("status");
-  let delimiter = document.createElement('hr');
+  let delimiter = document.createElement("hr");
   let reliability = document.createElement("p");
   reliability.setAttribute("class", "blue");
   reliability.setAttribute("style", "font-size: 1rem");
@@ -137,9 +138,10 @@ function ahpCalc() {
   status.appendChild(info_of_reliability);
   status.appendChild(reliability);
 
-  chrome.storage.sync.set({
-    configured: true,
-    cMatrix: {
+  chrome.storage.sync.set(
+    {
+      configured: true,
+      cMatrix: {
         t12: t12.options[t12.selectedIndex].value,
         t13: t13.options[t13.selectedIndex].value,
         t14: t14.options[t14.selectedIndex].value,
@@ -150,30 +152,40 @@ function ahpCalc() {
         t34: t34.options[t34.selectedIndex].value,
         t35: t35.options[t35.selectedIndex].value,
         t45: t45.options[t45.selectedIndex].value,
-    },
-    userAHP: {
+      },
+      userAHP: {
         si: weights[0],
         ra: weights[1],
         nr: weights[2],
         nvr: weights[3],
         nvp: weights[4],
       },
-  }, function(items) { console.log('configuration saved!'); });
+    },
+    function (items) {
+      console.log("configuration saved!");
+    }
+  );
 }
 
 function createWeightTable(w) {
-  let table = document.createElement('table');
-  table.setAttribute('id', 'weights');
-  table.setAttribute('border', '1');
-  table.setAttribute('class', 'blue w-5');
+  let table = document.createElement("table");
+  table.setAttribute("id", "weights");
+  table.setAttribute("border", "1");
+  table.setAttribute("class", "blue w-5");
 
-  let tbody = document.createElement('tbody');
-  let criteria = ['類似度', 'レビュー', 'レーティング', '動画レビュー', '再生数'];
+  let tbody = document.createElement("tbody");
+  let criteria = [
+    "類似度",
+    "レビュー",
+    "レーティング",
+    "動画レビュー",
+    "再生数",
+  ];
   criteria.forEach((v, i) => {
-    let tr = document.createElement('tr');
-    let th_1 = document.createElement('th');
+    let tr = document.createElement("tr");
+    let th_1 = document.createElement("th");
     th_1.innerHTML = v;
-    let th_2 = document.createElement('th');
+    let th_2 = document.createElement("th");
     th_2.innerHTML = w[i];
     tr.appendChild(th_1);
     tr.appendChild(th_2);
@@ -257,5 +269,12 @@ function createTable(data, weights) {
   return table;
 }
 
+function showExplainer() {
+  data.datasets[0].data = weights;
+  optionChart = new Chart(document.getElementById("optionCharts"), config);
+  document.querySelector("#result-explanation").hidden = false;
+}
+
 save.addEventListener("click", ahpCalc);
+save.addEventListener("click", showExplainer);
 document.addEventListener("DOMContentLoaded", restoreOption);
