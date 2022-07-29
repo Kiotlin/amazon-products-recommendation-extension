@@ -338,26 +338,6 @@ refresh.addEventListener('click', async function () {
 
     console.log(amazonDetailList);
 
-    // search detail information for each result on Otto
-    let ottoRelatedProductList = [];
-
-    // await getOttoRelatedProductList(resultKeywordList[0], 1)
-    // .then(data => ottoRelatedProductList.push(data.searchProductDetails))
-    // .catch(err => console.log(err));
-
-    // await getOttoRelatedProductList(resultKeywordList[1], 1)
-    // .then(data => ottoRelatedProductList.push(data.searchProductDetails))
-    // .catch(err => console.log(err));
-
-    // await getOttoRelatedProductList(resultKeywordList[2], 1)
-    // .then(data => ottoRelatedProductList.push(data.searchProductDetails))
-    // .catch(err => console.log(err));
-
-    // await getOttoRelatedProductList(resultKeywordList[3], 1)
-    // .then(data => ottoRelatedProductList.push(data.searchProductDetails))
-    // .catch(err => console.log(err));
-    // console.log(ottoRelatedProductList);
-
     // search detail information for each results on Tiktok
     let tiktokRelatedVideoList = [];
 
